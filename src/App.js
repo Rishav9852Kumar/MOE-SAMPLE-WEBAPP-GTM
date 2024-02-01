@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import TagManager from "react-gtm-module";
 
 function App() {
   const [formInput, setFormInput] = useState({
@@ -20,19 +21,20 @@ function App() {
     attributeValue: "",
   });
 
+  // GTM Initialization
+  const tagManagerArgs = {
+    gtmId: "GTM-5PWRGFW2",
+  };
+
+  TagManager.initialize(tagManagerArgs);
+
   const trackButtonClickedEvent = () => {
     console.log("Button Clicked Event made");
-    window.Moengage.track_event("Button Clicked Event stored", {
-      integration: "React",
-    });
     toast.success("Button Clicked Event made");
   };
 
   const trackUserDeatilsUpdateEvent = () => {
     console.log("User deatils updated");
-    window.Moengage.track_event("User deatils updated", {
-      integration: "React",
-    });
     toast.success("User details updated");
   };
 
@@ -50,13 +52,6 @@ function App() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    window.Moengage.add_first_name(formInput.firstname);
-    window.Moengage.add_last_name(formInput.lastname);
-    window.Moengage.add_email(formInput.email);
-    window.Moengage.add_mobile(formInput.mobile);
-    window.Moengage.add_user_name(formInput.username); // Full name for user
-    window.Moengage.add_gender(formInput.gender);
-    window.Moengage.add_birthday(new Date(formInput.birthday));
     trackUserDeatilsUpdateEvent();
   };
   const handleCustomAttributeSubmit = (e) => {
@@ -89,10 +84,6 @@ function App() {
         default:
           typedAttributeValue = customAttribute.attributeValue.toString();
       }
-      window.Moengage.add_user_attribute(
-        customAttribute.attributeName,
-        typedAttributeValue
-      );
       toast.success("Custom attribute added");
     } else {
       toast.error("Custom attribute fields cannot be empty");
