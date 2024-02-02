@@ -84,7 +84,7 @@ function App() {
         default:
           typedAttributeValue = customAttribute.attributeValue.toString();
       }
-      toast.success("Custom attribute added");
+      toast.success("Custom attribute added" + typedAttributeValue);
     } else {
       toast.error("Custom attribute fields cannot be empty");
     }
