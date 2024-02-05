@@ -20,7 +20,7 @@ function App() {
     attributeType: "string",
     attributeValue: "",
   });
-  const [uid, setUid] = useState({ id: "" });
+  const [uid, setUid] = useState({ id: "985211" });
   const handleLogOut = () => {
     console.log("Logout Button Clicked ");
     toast.warning("Log Out Successfull");
