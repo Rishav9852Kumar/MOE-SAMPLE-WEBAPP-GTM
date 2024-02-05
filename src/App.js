@@ -36,6 +36,13 @@ function App() {
     // Moengage Adding Unique User Id
     console.log("User logging : " + uid.id);
     toast.success("User logged in : " + uid.id);
+
+    // Add this to push to the data layer when the user logs in
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "user_login",
+      userId: uid.id,
+    });
   };
   // GTM Initialization
   const tagManagerArgs = {
@@ -157,7 +164,9 @@ function App() {
             required
             placeholder="User ID"
           />
-          <button type="submit">Log In </button>
+          <button type="submit" className="LogIn-button">
+            Log In{" "}
+          </button>
         </form>
         <button className="LogOut-button" onClick={handleLogOut}>
           Log Out
