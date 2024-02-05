@@ -6,13 +6,13 @@ import TagManager from "react-gtm-module";
 
 function App() {
   const [formInput, setFormInput] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    mobile: "",
-    username: "",
-    gender: "",
-    birthday: "",
+    firstname: "Rishav",
+    lastname: "Kumar",
+    email: "rishav@gamil.com",
+    mobile: "6203356879",
+    username: "user@123",
+    gender: "M",
+    birthday: "10 AUG 2000",
   });
 
   const [customAttribute, setCustomAttribute] = useState({
@@ -20,7 +20,23 @@ function App() {
     attributeType: "string",
     attributeValue: "",
   });
-
+  const [uid, setUid] = useState({ id: "" });
+  const handleLogOut = () => {
+    console.log("Logout Button Clicked ");
+    toast.warning("Log Out Successfull");
+  };
+  const handleIdChange = (e) => {
+    setUid({
+      ...uid,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleUidSubmit = (e) => {
+    e.preventDefault();
+    // Moengage Adding Unique User Id
+    console.log("User logging : " + uid.id);
+    toast.success("User logged in : " + uid.id);
+  };
   // GTM Initialization
   const tagManagerArgs = {
     gtmId: "GTM-5PWRGFW2",
@@ -132,9 +148,25 @@ function App() {
       <button className="App-button" onClick={trackButtonClickedEvent}>
         Track Sample Event
       </button>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <form className="Custom-Attribute-Form" onSubmit={handleUidSubmit}>
+          <input
+            name="id"
+            value={uid.id}
+            onChange={handleIdChange}
+            required
+            placeholder="User ID"
+          />
+          <button type="submit">Log In </button>
+        </form>
+        <button className="LogOut-button" onClick={handleLogOut}>
+          Log Out
+        </button>
+      </div>
       <form className="App-form" onSubmit={handleSubmit}>
         <input
           name="firstname"
+          id="firstname"
           value={formInput.firstname}
           onChange={handleInputChange}
           required
@@ -182,7 +214,7 @@ function App() {
           required
           placeholder="Birthday"
         />
-        <button className="App-button" type="submit">
+        <button className="Form-button" type="submit">
           Submit
         </button>
       </form>
